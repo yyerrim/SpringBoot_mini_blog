@@ -83,4 +83,10 @@ public class PostController {
         return post;
     }
 
+    @GetMapping("/post-remove")
+    public String postRemove(@RequestParam Long postId) {
+        postRepository.deleteById(postId);
+        return "삭제 완료";
+    }
+
 }
