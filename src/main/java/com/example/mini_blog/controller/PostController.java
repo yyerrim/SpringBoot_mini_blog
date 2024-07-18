@@ -47,9 +47,17 @@ public class PostController {
     // PostMapping 써도 되지만 보통 조회할때는 GetMapping 사용
     @GetMapping("/post-list")
     public Map<String, Object> postList(
-            @RequestParam(defaultValue = "1") int page) {
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "") String search) {
         Pageable pageable = PageRequest.of(page - 1, 10);
-        Page<PostEntity> p = postRepository.findAll(pageable);
+
+        Page<PostEntity> p = null;
+        if (search.equals("")) {
+            p = postRepository.findAll(pageable);
+        } else {
+            p = postRepository.findByTitleContainingOrDescContaining(search, search, pageable);
+        }
+
         long totalCount = p.getTotalElements();
         int totalPage = p.getTotalPages();
 
