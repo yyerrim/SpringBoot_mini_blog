@@ -1,6 +1,7 @@
 package com.example.mini_blog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +10,7 @@ import com.example.mini_blog.entity.PostEntity;
 import com.example.mini_blog.repository.PostRepository;
 
 @RestController
+@CrossOrigin
 public class PostController {
     @Autowired
     PostRepository postRepository;
