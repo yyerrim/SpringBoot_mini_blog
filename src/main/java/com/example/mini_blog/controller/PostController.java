@@ -1,10 +1,14 @@
 package com.example.mini_blog.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,4 +39,19 @@ public class PostController {
         map.put("result", result);
         return map;
     }
+
+    // PostMapping 써도 되지만 보통 조회할때는 GetMapping 사용
+    @GetMapping("/post-list")
+    public List<PostEntity> postList() {
+        List<PostEntity> list = postRepository.findAll();
+        return list;
+    }
+
+    @GetMapping("/post/{postId}")
+    public PostEntity post(@PathVariable Long postId) {
+        Optional<PostEntity> opt = postRepository.findById(postId);
+        PostEntity post = opt.get();
+        return post;
+    }
+
 }
