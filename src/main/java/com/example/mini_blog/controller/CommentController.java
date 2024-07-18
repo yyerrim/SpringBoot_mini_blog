@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.mini_blog.entity.CommentEntity;
+import com.example.mini_blog.entity.PostEntity;
 import com.example.mini_blog.repository.CommentRepository;
 
 @RestController
@@ -20,6 +21,9 @@ public class CommentController {
 
     @PostMapping("/comment-write")
     public Map<String, Object> commentWrite(@RequestBody CommentEntity comment) {
+        PostEntity post = new PostEntity();
+        post.setId(comment.getPostId());
+        comment.setPost(post);
         CommentEntity result = commentRepository.save(comment);
         Map<String, Object> map = new HashMap<>();
         map.put("code", 200);
